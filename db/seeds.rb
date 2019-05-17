@@ -9,10 +9,13 @@
 require 'json'
 require 'open-uri'
 
+Cocktail.destroy_all
+Ingredient.destroy_all
+
 url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
 
 ingredients = open(url).read
 result = JSON.parse(ingredients)
 result['drinks'].each do |drink|
-  Cocktail.create(name: drink['strIngredient1'])
+  Ingredient.create(name: drink['strIngredient1'])
 end
